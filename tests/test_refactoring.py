@@ -25,6 +25,11 @@ class InventoryRefactoringTests(unittest.TestCase):
         self.assertEqual(safe_int("not-a-number", 9), 9)
         self.assertEqual(safe_int(None, 4), 4)
 
+    def test_zero_and_small_households_require_one_box(self):
+        self.assertEqual(self.service._required_food_boxes({"household_size": 0}), 1)
+        self.assertEqual(self.service._required_food_boxes({"household_size": 3}), 1)
 
+    def test_household_boundary_requires_two_boxes(self):
+        self.assertEqual(self.service._required_food_boxes({"household_size": 6}), 2)
 if __name__ == "__main__":
     unittest.main()
