@@ -25,6 +25,12 @@ class InventoryRefactoringTests(unittest.TestCase):
         self.assertEqual(safe_int("not-a-number", 9), 9)
         self.assertEqual(safe_int(None, 4), 4)
 
+    def test_safe_int_handles_whitespace_and_negative_numbers(self):
+        self.assertEqual(safe_int(" 15 "), 15)
+        self.assertEqual(safe_int("-8"), -8)
 
+    def test_safe_int_preserves_default_for_invalid_values(self):
+        self.assertEqual(safe_int("invalid", 25), 25)
+        self.assertEqual(safe_int(None, -1), -1)
 if __name__ == "__main__":
     unittest.main()
